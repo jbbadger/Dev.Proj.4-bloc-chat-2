@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RoomList from './components/RoomList.js';
 import MessageList from './components/MessageList.js';
+import User from './components/User.js';
 import * as firebase from 'firebase';
 import './App.css';
 var config = {
@@ -16,13 +17,20 @@ firebase.initializeApp(config);
 class App extends Component {
   constructor(props){
     super(props);
-    this.state = { activeRoom: '' };
+    this.state = { activeRoom: '',
+                   user: null};
     this.setActiveRoom = this.setActiveRoom.bind(this);
+    this.setUser = this.setUser.bind(this);
   }
 
   setActiveRoom(room){
     this.setState({ activeRoom: room.key });
     console.log( "room activated" );
+  }
+
+  setUser(user){
+    this.setState({ user: user });
+    console.log( user )
   }
 
   render() {
@@ -35,6 +43,11 @@ class App extends Component {
         <MessageList
           firebase={firebase}
           activeRoom={ this.state.activeRoom } />
+        <User
+          firebase={firebase}
+          setUser={this.setUser}
+          user={this.state.user}
+           />
       </div>
     );
   }
