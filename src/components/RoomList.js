@@ -38,7 +38,7 @@ class RoomList extends Component {
       <div>
         <h1>Bloc Chat</h1>
         {this.state.rooms.map((room, index) =>
-          <li key={room.key}>
+          <li key={room.key} onClick={() => this.props.setActiveRoom(room) }>
             {room.name}
           </li>)}
       </div>
