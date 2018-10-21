@@ -38,7 +38,9 @@ class RoomList extends Component {
     e.preventDefault();
     room.remove();
     messages.remove();
-    this.setState({ rooms: [...this.state.rooms.filter(i => i !== roomKey)]});
+    const filterRooms = this.state.rooms.filter((room) => room.key !== roomKey)
+    this.setState({ rooms: filterRooms });
+
 
 
 
