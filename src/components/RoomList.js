@@ -32,12 +32,16 @@ class RoomList extends Component {
     this.roomsRef.push({ name: this.state.newRoom});
 }
 
-  handleDelete(roomKey) {
+  handleDelete(e, roomKey){
     const room = this.props.firebase.database().ref("rooms/" + roomKey);
     const messages = this.props.firebase.database().ref("messages/" + roomKey);
+    e.preventDefault();
     room.remove();
     messages.remove();
-    window.location.reload(true);
+    this.setState({ rooms: [...this.state.rooms.filter(i => i !== roomKey)]});
+
+
+
   }
 
   render(){
@@ -51,7 +55,7 @@ class RoomList extends Component {
           <span>
           <button
             type="button"
-            onClick={ () => this.handleDelete(room.key)}> delete </button>
+            onClick={ (e) => this.handleDelete(e, room.key)}> delete </button>
           </span>
           </li>)}
       </div>
